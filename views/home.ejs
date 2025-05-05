@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/js/themeToggle.js" defer></script>
 </head>
-<body>
+<body class="<%= currentUser && currentUser.themePreference === 'dark' ? 'dark-theme' : '' %>" 
+      data-user-id="<%= currentUser ? currentUser._id : '' %>">
     <header>
         <nav>
             <a href="/" class="logo">
@@ -17,6 +19,13 @@
             </a>
             <div class="nav-links">
                 <% if (currentUser) { %>
+                    <div class="user-info">
+                        <span><i class="fas fa-user"></i> <%= currentUser.username %></span>
+                        <label class="theme-switch" title="Toggle Dark Mode">
+                            <input type="checkbox" id="theme-toggle" <%= currentUser && currentUser.themePreference === 'dark' ? 'checked' : '' %>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                     <a href="/items" class="btn btn-sm btn-secondary">
                         <i class="fas fa-list"></i> My List
                     </a>
@@ -84,7 +93,7 @@
 
         <% if (currentUser && items && items.length > 0) { %>
             <section class="recent-items">
-                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--dark);">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--text-color);">
                     <i class="fas fa-clock"></i> Recently Added
                 </h2>
                 <div class="table-container">
@@ -122,21 +131,21 @@
         <% } %>
     </main>
 
-    <footer style="background: var(--dark); color: var(--white); padding: 2rem; text-align: center; margin-top: 4rem;">
-        <div class="container" style="display: flex; flex-direction: column; gap: 1rem;">
+    <footer>
+        <div class="footer-container">
             <div>
-                <a href="/" class="logo" style="color: var(--white);">
+                <a href="/" class="footer-logo">
                     <i class="fas fa-shopping-basket logo-icon"></i>
                     QuickCart
                 </a>
             </div>
             <p style="opacity: 0.8;">The smart way to shop and save</p>
-            <div style="display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" style="color: var(--white);"><i class="fab fa-twitter"></i></a>
-                <a href="#" style="color: var(--white);"><i class="fab fa-facebook"></i></a>
-                <a href="#" style="color: var(--white);"><i class="fab fa-instagram"></i></a>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">© 2023 QuickCart. All rights reserved.</p>
+            <p class="footer-copyright">© <%= new Date().getFullYear() %> QuickCart. All rights reserved.</p>
         </div>
     </footer>
 </body>

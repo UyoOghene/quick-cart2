@@ -99,6 +99,19 @@ app.use('/', authRoutes);
 //            res.render('home');
 
 // });
+
+// Add this with your other routes
+app.post('/users/theme', isLoggedIn, async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.user._id, { 
+            themePreference: req.body.theme 
+        });
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.get('/', async (req, res) => {
     try {
         let items = [];

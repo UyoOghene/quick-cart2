@@ -14,6 +14,7 @@ const UserSchema = new Schema({
     }],
     themePreference: {
         type: String,
+        enum: ['light', 'dark'],
         default: 'light'
     }
 });
