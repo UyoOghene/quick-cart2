@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .item-table th, .item-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .item-table th {
+            background-color: #f2f2f2;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .action-btns {
+            display: flex;
+            gap: 5px;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Shopping List</h1>
+        
+        <form action="/items" method="POST" id="add-item-form">
+            <input type="text" name="name" placeholder="Item name" required>
+            <input type="number" name="price" placeholder="Price" step="0.01" required>
+            <button type="submit">Add Item</button>
+        </form>
+
+        <% if (items && items.length > 0) { %>
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Added By</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% items.forEach(item => { %>
+                        <tr class="<%= item.completed ? 'completed' : '' %>">
+                            <td><%= item.name %></td>
+                            <td>$<%= item.price.toFixed(2) %></td>
+                            <td><%= item.author.username %></td>
+                            <td class="timestamp">
+                                <% if (item.createdAt) { %>
+                                    <%= item.createdAt.toLocaleDateString() %> 
+                                    <%= item.createdAt.toLocaleTimeString() %>
+                                <% } else { %>
+                                    Date not available
+                                <% } %>
+                            </td>
+                            
+                            <td class="action-btns">
+                                <a href="/items/<%= item._id %>/edit" class="btn-edit">Edit</a>
+                                <form action="/items/<%= item._id %>?_method=PUT" method="POST" style="display: inline;">
+                                    <input type="hidden" name="completed" value="<%= !item.completed %>">
+                                    <button type="submit"><%= item.completed ? 'Undo' : 'Complete' %></button>
+                                </form>
+                                <form action="/items/<%= item._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No items in your shopping list yet. Add some above!</p>
+        <% } %>
+    </div>
+</body>
+</html>

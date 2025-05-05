@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Cart - Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .hero {
+            background-color: #f8f9fa;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .cta-buttons {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Welcome to Quick Cart</h1>
+            <p class="lead">Your simple, efficient shopping list app</p>
+            
+            <% if (!currentUser) { %>
+                <div class="cta-buttons">
+                    <a href="/register" class="btn btn-primary">Sign Up</a>
+                    <a href="/login" class="btn btn-secondary">Login</a>
+                </div>
+            <% } else { %>
+                <div class="cta-buttons">
+                    <a href="/items" class="btn btn-primary">Go to Your Shopping List</a>
+                </div>
+            <% } %>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>📝 Easy to Use</h3>
+                <p>Add items to your list with just a few clicks. Simple and intuitive interface.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💰 Track Spending</h3>
+                <p>Add prices to see your estimated total cost as you shop.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Access Anywhere</h3>
+                <p>Your list is available on all your devices, anytime.</p>
+            </div>
+        </section>
+
+        <% if (currentUser && items && items.length > 0) { %>
+            <section class="recent-items">
+                <h2>Your Recent Items</h2>
+                <ul>
+                    <% items.slice(0, 3).forEach(item => { %>
+                        <li><%= item.name %> - $<%= item.price.toFixed(2) %></li>
+                    <% }) %>
+                </ul>
+                <a href="/items">View Full List</a>
+            </section>
+        <% } %>
+    </div>
+
+
+    <script>
+        // Simple client-side interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animations or other client-side functionality here
+            console.log('Quick Cart loaded!');
+        });
+    </script>
+</body>
+</html>
