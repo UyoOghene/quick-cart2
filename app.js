@@ -119,17 +119,20 @@ app.get('/items', isLoggedIn, async (req, res) => {
     const items = await Item.find({ author: req.user._id })
                           .populate('author')
                           .sort({ createdAt: -1 });
-    
-    // Add fallback for items without createdAt
+
     const itemsWithDates = items.map(item => {
         if (!item.createdAt) {
-            item.createdAt = new Date(); // Set to current date if missing
+            item.createdAt = new Date();
         }
         return item;
     });
 
-    res.render('items/index', { items: itemsWithDates });
+    // Calculate total price
+    const totalPrice = items.reduce((sum, item) => sum + item.price, 0);
+
+    res.render('items/index', { items: itemsWithDates, totalPrice });
 });
+
 app.post('/items', isLoggedIn, async (req, res) => {
     const { name, price } = req.body;
     const item = new Item({ name, price, author: req.user._id });
@@ -152,7 +155,7 @@ app.put('/items/:id', isLoggedIn, async (req, res) => {
     res.redirect('/items');
 });
 
-app.delete('/:id', isLoggedIn, async (req, res) => {
+app.delete('/items/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
     await Item.findByIdAndDelete(id);
     res.redirect('/items');
