@@ -55,6 +55,191 @@
     padding: 0;
     box-sizing: border-box;
   }
+
+  /* AUTHENTICATION STYLES */
+:root {
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --secondary: #3f37c9;
+    --dark: #1b263b;
+    --light: #f8f9fa;
+    --white: #ffffff;
+    --error: #f94144;
+    --success: #43aa8b;
+    --glass: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+  
+  .auth-container {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: var(--white);
+  }
+  
+  .auth-form-container {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .glass-form {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+  
+  .auth-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: var(--white);
+    font-size: 2.2rem;
+  }
+  
+  .auth-form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .auth-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--white);
+    opacity: 0.9;
+  }
+  
+  .auth-input {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: var(--white);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--glass-border);
+  }
+  
+  .auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .auth-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+  
+  .auth-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auth-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .auth-toggle {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--white);
+  }
+  
+  .auth-toggle a {
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--white);
+    padding-bottom: 2px;
+    transition: all 0.2s ease;
+  }
+  
+  .auth-toggle a:hover {
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  
+  .server-error {
+    background: rgba(249, 65, 68, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-left: 4px solid var(--error);
+  }
+  
+  .success-message {
+    color: var(--success);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  
+  .password-requirements {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Floating Animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .floating-form {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .auth-container {
+      padding: 1rem;
+    }
+    
+    .glass-form {
+      padding: 1.5rem;
+    }
+    
+    .auth-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+  }
   
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
